@@ -59,7 +59,7 @@ class BaseRepository(IRepository):
                 await session.commit()
                 return instance
 
-    async def delete(self, instance: Base):
+    async def delete(self, instance: Base) -> Base:
         async with self.db_manager.session() as session:
             session: AsyncSession
 

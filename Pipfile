@@ -17,6 +17,8 @@ rich = "*"
 alembic = "*"
 sqlalchemy = "*"
 asyncpg = "*"
+pydantic = "*"
+pydantic-settings = "*"
 
 [dev-packages]
 

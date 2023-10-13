@@ -4,7 +4,6 @@ from typing import List
 
 from sqlalchemy import Column, text, UUID
 from sqlalchemy import DateTime
-from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import Table
 from sqlalchemy import ForeignKey
@@ -39,8 +38,12 @@ class User(Base):
     username = Column("username", String, unique=True, nullable=False)
     password = Column("password", String, nullable=False)
 
-    created_tasks: Mapped[List["Task"]] = relationship(back_populates="created_by")
-    assigned_tasks: Mapped[List["Task"]] = relationship(back_populates="assigned_to")
+    created_tasks: Mapped[List["Task"]] = relationship(
+        back_populates="created_by"
+    )
+    assigned_tasks: Mapped[List["Task"]] = relationship(
+        back_populates="assigned_to"
+    )
 
     projects: Mapped[List["Project"]] = relationship(secondary=projects_users)
 
@@ -57,7 +60,9 @@ class Task(Base):
 
     title = Column("title", String)
     description = Column("description", String)
-    created_at = Column("created_at", DateTime, default=datetime.datetime.utcnow())
+    created_at = Column(
+        "created_at", DateTime, default=datetime.datetime.utcnow()
+    )
     status = Column("status", String)
 
     created_by: Mapped["User"] = ForeignKey("users.id")

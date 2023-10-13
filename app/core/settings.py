@@ -1,6 +1,6 @@
-from typing import Literal, Optional
+from typing import Literal
 
-from pydantic import BaseSettings
+from pydantic.v1 import BaseSettings
 
 
 class AppSettings(BaseSettings):

@@ -20,7 +20,9 @@ class PostgresDBManager:
 
     @asynccontextmanager
     async def session(self) -> AsyncIterator[AsyncSession]:
-        session: AsyncSession = AsyncSession(self.engine, expire_on_commit=False)
+        session: AsyncSession = AsyncSession(
+            self.engine, expire_on_commit=False
+        )
 
         try:
             async with session:
