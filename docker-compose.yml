@@ -11,5 +11,20 @@ services:
       - "5000:5000"
     environment:
       env_file: ./system_configs/.env
+    depends_on:
+      - db
     volumes:
       - ./:/app
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - 'db_data:/var/lib/postgres/data'
+volumes:
+  db_data:

@@ -35,7 +35,7 @@ RUN chmod +x entrypoint.dev.sh
 RUN pip3 install --no-cache-dir awscli
 
 RUN mkdir -p /app/system_configs
-RUN env
+RUN envя
 
 # Install application into container
 COPY . .

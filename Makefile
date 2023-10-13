@@ -13,3 +13,6 @@ linters:
 	python -m flake8 --exclude=tests/ $(APP_FOLDER)
 	python -m bandit -r $(APP_FOLDER) --skip "B101" --recursive
 	python -m mypy --ignore-missing-imports --disallow-untyped-defs $(APP_FOLDER)
+
+migrate:
+	alembic revision --autogenerate -m "$(name)"
