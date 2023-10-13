@@ -3,21 +3,21 @@ from abc import ABC, abstractmethod
 
 class IRepository(ABC):
     @abstractmethod
-    def get_all(self):
+    async def get_all(self):
         raise NotImplemented
 
     @abstractmethod
-    def get_by_id(self):
+    async def get_by_id(self, pk):
         raise NotImplemented
 
     @abstractmethod
-    def create(self):
+    async def create(self, instance):
         raise NotImplemented
 
     @abstractmethod
-    def update(self):
+    async def update(self, instance):
         raise NotImplemented
 
     @abstractmethod
-    def delete(self):
+    async def delete(self, instance):
         raise NotImplemented

@@ -1,7 +1,8 @@
 import datetime
+import uuid
 from typing import List
 
-from sqlalchemy import Column
+from sqlalchemy import Column, text, UUID
 from sqlalchemy import DateTime
 from sqlalchemy import Integer
 from sqlalchemy import String
@@ -13,7 +14,14 @@ from sqlalchemy.orm import relationship
 
 
 class Base(DeclarativeBase):
-    pass
+    __abstract__ = True
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        unique=True,
+        server_default=text("gen_random_uuid()"),
+        default=uuid.uuid4,
+    )
 
 
 projects_users = Table(
@@ -26,7 +34,7 @@ projects_users = Table(
 
 class User(Base):
     __tablename__ = "users"
-    id = Column("id", Integer, primary_key=True)
+
     email = Column("email", String, unique=True, nullable=False)
     username = Column("username", String, unique=True, nullable=False)
     password = Column("password", String, nullable=False)
@@ -39,7 +47,6 @@ class User(Base):
 
 class Project(Base):
     __tablename__ = "projects"
-    id = Column("id", Integer, primary_key=True)
 
     tasks: Mapped[List["Task"]] = relationship(back_populates="project_id")
     users: Mapped[List["User"]] = relationship(secondary=projects_users)
@@ -47,7 +54,7 @@ class Project(Base):
 
 class Task(Base):
     __tablename__ = "tasks"
-    id = Column("id", Integer, primary_key=True)
+
     title = Column("title", String)
     description = Column("description", String)
     created_at = Column("created_at", DateTime, default=datetime.datetime.utcnow())
